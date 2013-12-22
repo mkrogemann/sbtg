@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+SCRIPT_PATH = File.readlink($0)
+IMAGE_PATH = File.join(File.dirname(SCRIPT_PATH), 'images')
+
+IO.popen("sbt \"~ test\"") do |io|
+  while(line = io.gets)
+
+    # ScalaTest 2.0
+    if line.match /All tests passed/
+      puts line
+      `growlnotify --image "#{IMAGE_PATH}/scalalogo-green.png" --name "sbt" -t "sbt test" -m "All tests passed."`
+    elsif line.match /TEST FAILED/
+      puts line
+      `growlnotify --image "#{IMAGE_PATH}/scalalogo-red.png" --name "sbt" -t "sbt test" -m "Tests failed."`
+
+    # Specs / Specs2
+    elsif line.match /Passed\:/
+      puts line
+      `growlnotify --image "#{IMAGE_PATH}/scalalogo-green.png" --name "sbt" -t "sbt test" -m "All tests passed."`
+
+    # General stuff (eg compilation)
+    elsif line.match /Compilation failed/
+      puts line
+      `growlnotify --image "#{IMAGE_PATH}/scalalogo-red.png" --name "sbt" -t "sbt test" -m "Compilation failed; tests didn't run."`
+
+    # Everything else just print out
+    else
+      puts line
+    end
+  end
+end
