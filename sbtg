@@ -2,6 +2,14 @@
 
 SCRIPT_PATH = File.readlink($0)
 IMAGE_PATH = File.join(File.dirname(SCRIPT_PATH), 'images')
+FAILURE = 1
+SUCCESS = 0
+
+def growl(outcome, msg)
+  image = outcome == FAILURE ? "#{IMAGE_PATH}/scalalogo-red.png" : "#{IMAGE_PATH}/scalalogo-green.png"
+  growl_cmd = "growlnotify --image #{image} --name 'sbt' -t 'sbt test' -m '#{msg}'"
+  `#{growl_cmd}`
+end
 
 IO.popen("sbt \"~ test\"") do |io|
   while(line = io.gets)
@@ -9,20 +17,20 @@ IO.popen("sbt \"~ test\"") do |io|
     # ScalaTest 2.0
     if line.match /All tests passed/
       puts line
-      `growlnotify --image "#{IMAGE_PATH}/scalalogo-green.png" --name "sbt" -t "sbt test" -m "All tests passed."`
+      growl SUCCESS, 'All tests passed.'
     elsif line.match /TEST FAILED/
       puts line
-      `growlnotify --image "#{IMAGE_PATH}/scalalogo-red.png" --name "sbt" -t "sbt test" -m "Tests failed."`
+      growl FAILURE, 'Tests failed.'
 
     # Specs / Specs2
     elsif line.match /Passed\:/
       puts line
-      `growlnotify --image "#{IMAGE_PATH}/scalalogo-green.png" --name "sbt" -t "sbt test" -m "All tests passed."`
+      growl SUCCESS, 'All tests passed.'
 
     # General stuff (eg compilation)
     elsif line.match /Compilation failed/
       puts line
-      `growlnotify --image "#{IMAGE_PATH}/scalalogo-red.png" --name "sbt" -t "sbt test" -m "Compilation failed; tests didn't run."`
+      growl FAILURE, 'Compilation failed! Tests were not run.'
 
     # Everything else just print out
     else
