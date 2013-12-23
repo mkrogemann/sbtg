@@ -8,7 +8,7 @@ FAILURE = 1
 SUCCESS = 0
 
 
-# SUPPORT FUNCTION
+# SUPPORT FUNCTIONS
 def find_candidates(test_name)
   return [test_name] if test_name.include?('.') # if we think it contains the package, just return as is
   test_folder = File.join(Dir.pwd, 'src', 'test', 'scala')
@@ -26,7 +26,7 @@ def package_and_class(path, test_folder)
 end
 
 def user_selection(candidates)
-  puts "Your input #{ARGV} is ambiguous. Please select from these candidates"
+  puts "Your input #{ARGV} is ambiguous. Please select from these candidates:"
   candidates.each_with_index do |cand, idx|
     puts "#{idx} - #{cand}"
   end
