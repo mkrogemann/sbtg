@@ -35,7 +35,7 @@ Usage / Features
 Here's what you can now do, always assuming that you first cd into the scala project's root:
 
 ## sbt ~ test
-In order to run 'sbt ~ test' and have it do red / green notification via growl, simply do
+In order to run ```sbt '~ test'``` and have it do red / green notification via growl, simply type
 
 ```
 $ sbtg
