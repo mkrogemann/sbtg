@@ -20,5 +20,4 @@ You will need to have Ruby installed of course and this solution is Mac only.
 Next
 ====
 
-- Cater for ~ testOnly
 - Output more information on failure (eg name of first failed test)
