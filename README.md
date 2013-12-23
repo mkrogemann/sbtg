@@ -12,9 +12,9 @@ I may decide to fix the sbt plugin but using Ruby for now helped me get producti
 Usage
 =====
 
-Clone the repo. Then create a symlink to the sbtg script in whatever directory you usually put binaries/scripts in, eg ~/bin
+Clone the repo. Then create a symlink to the sbtg script in whichever directory you usually keep your binaries/scripts in (eg ~/bin)
 
-You will need to have Ruby installed of course and this solution is Mac only.
+You will need to have Ruby, Growl and growlnotify installed which makes this solution a Mac only show
 
 
 Next
