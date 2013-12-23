@@ -65,7 +65,7 @@ The wrapper will translate this into
 $ sbt '~ testOnly conway.RulesSpec'
 ```
 
-It can do this by looking at the names of all tests it finds recursively in '.src/test/scala' and then figuring out that only 'RulesSpec' matches your input.
+It can do this by looking at the names of all tests it finds recursively in './src/test/scala' and then figuring out that only the test ```conway.RulesSpec``` matches your input.
 
 ## sbt ~ testOnly: Interactive selection of test
 If you specify a test name fragment that resolves to more than one test, you will be presented with a selection as shown below:
