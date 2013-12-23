@@ -5,11 +5,11 @@ A tiny Ruby tool to make sbt and growl work together effectively.
 
 Totally inspired by and originally started as a fork of https://github.com/tommorris/sbt-growltest
 
-At the time of this writing, the project mentioned above has not been updated in four years and sbtg has now developed into something quite different, so I decided that it cannot be a fork any longer but needs its own project.
+At the time of this writing, the project mentioned above had not been updated in four years and sbtg has now developed into something quite different, so I decided that it cannot be a fork any longer but needs its own project.
 
-One reason why I chose to use this wrapper instead of using an existing sbt plugin is the fact that the plugin simply does not work for me (OS X 10.9.1, growl 2.1.3, sbt 0.13.1, scala 2.10.3).
+One reason why I chose to build this wrapper rather than using an existing sbt plugin (https://github.com/softprops/sbt-growl-plugin) is the fact that the plugin simply does not work for me (OS X 10.9.1, growl 2.1.3, sbt 0.13.1, scala 2.10.3).
 
-I may come back to reviewing the sbt plugin in the future, but for now, using Ruby helped me get productive with sbt and growl very quickly.
+I may come back to reviewing the sbt plugin in the future, but for now, using Ruby helped me to get productive with sbt and growl very quickly. It also sports a few nice extra features (see below).
 
 
 Prerequistes
@@ -26,7 +26,7 @@ Installation
 ============
 
 1. Clone the repo
-2. Create a symlink to the sbtg script that you will find in the cloned repo from whichever directory you prefer to store executable scripts in (for example in ~/bin)
+2. Create a symlink to the sbtg script that you will find in the cloned repo from whichever directory you prefer to store executable scripts in (for example in ~/bin). Obvioulsy, it makes sense if this directory is contained in your $PATH.
 
 
 Usage / Features
