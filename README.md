@@ -18,7 +18,7 @@ Prerequistes
 You will need to have
 
 1. Ruby (will work with MRI 1.8.7, 1.9.3 and 2.0.0)
-2. Growl and growlnotify, which makes this solution a Mac only thing
+2. Growl and growlnotify, which makes this solution a Mac-only thing
 3. Obvioulsy: sbt (tested with 0.13.x)
 
 
@@ -65,7 +65,7 @@ The wrapper will translate this into
 $ sbt '~ testOnly conway.RulesSpec'
 ```
 
-It can do this by looking at the names of all tests it finds recursively in './src/test/scala' and then figuring out that only the test ```conway.RulesSpec``` matches your input.
+It can do this by looking at the names of all tests it finds recursively in ```./src/test/scala``` and then figuring out that only the test ```conway.RulesSpec``` matches your input.
 
 ## sbt ~ testOnly: Interactive selection of test
 If you specify a test name fragment that resolves to more than one test, you will be presented with a selection as shown below:
@@ -81,7 +81,7 @@ Your input ["Spec"] is ambiguous. Please select from these candidates:
 
 You can now continue by selecting the test that you originally had in mind but were too lazy to fully specify. Convenience rules!
 
-These features add value in my view: I do not have to remember the complete name or even the package in which a test resides in order to run it continuously in the background.
+These features add value in my view: I do not have to remember and type the complete name and package in which a test resides in order to run it continuously in the background.
 
 Next
 ====
