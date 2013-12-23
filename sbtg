@@ -7,11 +7,42 @@ SUCCESS = 0
 
 def growl(outcome, msg)
   image = outcome == FAILURE ? "#{IMAGE_PATH}/scalalogo-red.png" : "#{IMAGE_PATH}/scalalogo-green.png"
-  growl_cmd = "growlnotify --image #{image} --name 'sbt' -t 'sbt test' -m '#{msg}'"
+  growl_cmd = "growlnotify --image #{image} --name 'sbt' -t 'sbt ~ test' -m '#{msg}'"
   `#{growl_cmd}`
 end
 
-IO.popen("sbt \"~ test\"") do |io|
+def package_and_class(path, test_folder)
+  package = path.sub(test_folder, '').gsub('/','.')
+  package[1..-7]  # remove leading '.' and '.scala'
+end
+
+def find_candidates(test_name)
+  return [test_name] if test_name.include?('.') # if we think it contains the package, just return as is
+  test_folder = File.join(Dir.pwd, 'src', 'test', 'scala')
+  candidates = []
+  Dir.glob("#{test_folder}/**/*.scala") do |scala_test|
+    filename = File.basename(scala_test, '.scala')
+    candidates << package_and_class(scala_test, test_folder) if filename == test_name
+  end
+  candidates
+end
+
+if ARGV.size == 1
+  candidates = find_candidates(ARGV[0])
+  if candidates.empty?
+    puts "No test found that matches your input: #{ARGV}"
+    exit 1
+  end
+  if candidates.size == 1
+    sbt_cmd = "sbt \'~ testOnly #{candidates.first}\'"
+  end
+else
+  sbt_cmd = "sbt \'~ test\'"
+end
+
+puts "Your input #{ARGV} got translated into #{sbt_cmd}"
+
+IO.popen(sbt_cmd) do |io|
   while(line = io.gets)
 
     # ScalaTest 2.0
