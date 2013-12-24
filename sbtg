@@ -64,9 +64,9 @@ IO.popen(sbt_cmd) do |io|
     if line.match /All tests passed/
       puts line
       growl SUCCESS, 'All tests passed.'
-    elsif line.match /TESTS? FAILED/
+    elsif match_data = line.match(/\*.*TESTS? FAILED.*\*/)
       puts line
-      growl FAILURE, 'Tests failed.'
+      growl FAILURE, match_data.to_s
 
     # Specs / Specs2
     elsif line.match /Passed\:/
