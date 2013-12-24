@@ -64,7 +64,7 @@ IO.popen(sbt_cmd) do |io|
     if line.match /All tests passed/
       puts line
       growl SUCCESS, 'All tests passed.'
-    elsif line.match /TEST FAILED/
+    elsif line.match /TESTS? FAILED/
       puts line
       growl FAILURE, 'Tests failed.'
 

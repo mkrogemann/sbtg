@@ -26,7 +26,7 @@ Installation
 ============
 
 1. Clone the repo
-2. Create a symlink to the sbtg script that you will find in the cloned repo from whichever directory you prefer to store executable scripts in (for example in ~/bin). Obvioulsy, it makes sense if this directory is contained in your $PATH.
+2. Create a symlink to the sbtg script that you will find in the cloned repo from whichever directory you prefer to store executable scripts in (for example in ~/bin). Obvioulsy, it makes sense for this directory to be contained in your $PATH.
 
 
 Usage / Features
