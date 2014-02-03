@@ -72,9 +72,12 @@ IO.popen(sbt_cmd) do |io|
     elsif line.match /Passed:/
       puts line
       growl SUCCESS, 'All tests passed.'
-    elsif line.match /Failed:/
+    elsif line.match /Failed/
       puts line
       growl FAILURE, 'Tests failed.'
+    elsif line.match /Error/
+      puts line
+      growl FAILURE, 'Error during tests.'
 
     # General stuff (eg compilation)
     elsif line.match /Compilation failed/
