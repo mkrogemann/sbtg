@@ -6,6 +6,8 @@ SCRIPT_PATH = File.readlink($0)
 IMAGE_PATH = File.join(File.dirname(SCRIPT_PATH), 'images')
 FAILURE = 1
 SUCCESS = 0
+SBT_VERSION = ENV['SBT_VERSION'] || '0.13'
+TEST_ONLY_CMD = SBT_VERSION == '0.13' ? 'testOnly' : 'test-only'
 
 
 # SUPPORT FUNCTIONS
@@ -47,9 +49,9 @@ if ARGV.size == 1
     puts "No test found that matches your input: #{ARGV}"
     exit 1
   elsif candidates.size == 1
-    sbt_cmd = "sbt \'~ testOnly #{candidates.first}\'"
+    sbt_cmd = "sbt \'~ #{TEST_ONLY_CMD} #{candidates.first}\'"
   else
-    sbt_cmd = "sbt \'~ testOnly #{candidates[user_selection(candidates)]}\'"
+    sbt_cmd = "sbt \'~ #{TEST_ONLY_CMD} #{candidates[user_selection(candidates)]}\'"
   end
 else
   sbt_cmd = "sbt \'~ test\'"
