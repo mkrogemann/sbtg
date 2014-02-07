@@ -31,7 +31,7 @@ Installation
 Supported sbt versions
 ======================
 
-sbtg currently supports versions 0.12.x and 0.13.x. There is one difference between these two which the script handles: testOnly vs. test-only are the respective task names.
+sbtg currently supports versions 0.12.x and 0.13.x. There is one difference between these two which the script handles: ```test-only``` and ```testOnly``` are the respective task names you have to use when you want to execute only one selected test.
 sbtg reads the sbt version from ```project/build.properties```. The value found in there can be overriden with a shell / environment variable, eg like so:
 ```
 $ SBT_VERSION=0.12 sbtg ...
