@@ -28,13 +28,14 @@ Installation
 1. Clone the repo
 2. Create a symlink to the sbtg script that you will find in the cloned repo from whichever directory you prefer to store executable scripts in (for example in ~/bin). Obvioulsy, it makes sense for this directory to be contained in your $PATH.
 
-Supported SBT versions
+Supported sbt versions
 ======================
 
 sbtg currently supports versions 0.12.x and 0.13.x. There is one difference between these two which the script handles: testOnly vs. test-only are the respective task names.
 sbtg reads the sbt version from ```project/build.properties```. The value found in there can be overriden with a shell / environment variable, eg like so:
 ```
-$SBT_VERSION=0.12 sbtg ...`
+$SBT_VERSION=0.12 sbtg ...
+```
 
 Usage / Features
 ================
