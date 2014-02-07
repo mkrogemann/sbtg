@@ -2,15 +2,24 @@
 
 
 # CONSTANTS
+
 SCRIPT_PATH = File.readlink($0)
 IMAGE_PATH = File.join(File.dirname(SCRIPT_PATH), 'images')
 FAILURE = 1
 SUCCESS = 0
-SBT_VERSION = ENV['SBT_VERSION'] || '0.13'
-TEST_ONLY_CMD = SBT_VERSION == '0.13' ? 'testOnly' : 'test-only'
 
 
 # SUPPORT FUNCTIONS
+
+def test_only_cmd_for_sbt_version
+  sbt_version = File.read('project/build.properties').chomp.split('=').last if File.exists?('project/build.properties')
+  sbt_version = ENV['SBT_VERSION'] if ENV['SBT_VERSION']
+  sbt_version ||= '0.13.x'
+  puts "SBT version for this project: #{sbt_version} (to override use ENV['SBT_VERSION'])"
+  return 'test-only' if sbt_version.include?'0.12'
+  'testOnly'
+end
+
 def find_candidates(test_name)
   return [test_name] if test_name.include?('.') # if we think it contains the package, just return as is
   test_folder = File.join(Dir.pwd, 'src', 'test', 'scala')
@@ -43,15 +52,17 @@ end
 
 
 # MAIN
+
 if ARGV.size == 1
+  test_only_cmd = test_only_cmd_for_sbt_version
   candidates = find_candidates(ARGV[0])
   if candidates.empty?
     puts "No test found that matches your input: #{ARGV}"
     exit 1
   elsif candidates.size == 1
-    sbt_cmd = "sbt \'~ #{TEST_ONLY_CMD} #{candidates.first}\'"
+    sbt_cmd = "sbt \'~ #{test_only_cmd} #{candidates.first}\'"
   else
-    sbt_cmd = "sbt \'~ #{TEST_ONLY_CMD} #{candidates[user_selection(candidates)]}\'"
+    sbt_cmd = "sbt \'~ #{test_only_cmd} #{candidates[user_selection(candidates)]}\'"
   end
 else
   sbt_cmd = "sbt \'~ test\'"
